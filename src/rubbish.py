@@ -189,7 +189,7 @@ def main(argv) -> int:
         return 1
 
     if not os.path.exists(rubbish.trashpath):
-        if not rubbish.initialize(rubbish):
+        if not rubbish.initialize():
             print("Initialization did not complete, " +
                   "nothing I can do here now, bye!")
             return 0
