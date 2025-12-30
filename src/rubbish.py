@@ -88,6 +88,11 @@ class Rubbish:
 
         return rub
 
+    def __remove_last_slash(self, path: str):
+        return (path[:-1]
+                if path[-1] == "/" or path[-1] == "\\" 
+                else path)
+
     def print_verbose(self, msg: str):
         if self.verbose:
             print(msg)
@@ -132,7 +137,8 @@ class Rubbish:
         mkdir_wrapper(target_path)
 
         shutil.move(path, target_path)
-        self.print_verbose(f"Move {path} -> {os.path.join(target_path, path)}")
+        basename = os.path.basename(self.__remove_last_slash(path))
+        self.print_verbose(f"Move {path} -> {os.path.join(target_path, basename)}")
 
     def empty_trashpile(self):
         trashpile = os.listdir(self.trashpath)
