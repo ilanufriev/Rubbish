@@ -1,0 +1,17 @@
+[build-system]
+requires = ["flit_core >=3.11,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "rubbish"
+authors = [{name = "Ilia Anufriev", email = "anufriewwi2@mail.ru"}]
+readme = "README.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+dynamic = ["version", "description"]
+
+[project.urls]
+Home = "https://github.com/ilanufriev"
+
+[project.scripts]
+rub = "rubbish:main"

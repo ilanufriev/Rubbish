@@ -1,5 +1,13 @@
 #!/bin/python3
 
+"""
+Rubbish is a small python script that allows you to delete
+your files by moving them into a specified trashbin directory.
+This offers a more safe way of deleting files compared to rm.
+"""
+
+__version__ = "1.0"
+
 import hashlib
 import argparse
 import sys
@@ -183,13 +191,15 @@ def mkdir_wrapper(path: str, mode=0o750, exist_ok=True):
     os.makedirs(path, mode, exist_ok)
 
 
-def main(argv) -> int:
+def main() -> int:
+    argv = sys.argv
     rubbish = Rubbish()
     rubbish.username = os.environ["USER"]
     rubbish.homepath = os.environ["HOME"]
     rubbish.trashpath = os.path.join(rubbish.homepath,
                                      ".local/share/rubbish/trashpile")
 
+    args = argp.parse_args()
     if not os.path.exists(rubbish.homepath):
         print("Homeless user, can't create trashpile directory. Aborted.")
         return 1
@@ -200,7 +210,6 @@ def main(argv) -> int:
                   "nothing I can do here now, bye!")
             return 0
 
-    args = argp.parse_args()
     rubbish.verbose = args.VERBOSE
     rubbish.recurse = args.RECURSIVE
     rubbish.entry_per_file = args.ENTRY_PER_FILE
@@ -226,7 +235,3 @@ def main(argv) -> int:
             print(f"{path} was not deleted: {e}")
 
     return 0
-
-
-if __name__ == "__main__":
-    sys.exit(main(sys.argv))
